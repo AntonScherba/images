@@ -49,8 +49,13 @@ const SearchBar = ({ tagName, isLoad, isDelay }) => {
 
     if (tagName.length === 0) {
       alert(`заполните поле 'тег'`);
-    } else if (tagName.toLowerCase().replace(/\s+/g, "") === "delay") {
+    } else if (tagName.toLowerCase().trim() === "delay") {
       setInterval(randomRequst, 5000);
+    } else if (tagName.includes(",")) {
+      const tags = tagName.replace(/\s+/g, "").split(",");
+      tags.map((tag) => {
+        return getImage(tag);
+      });
     } else {
       getImage(tagName);
     }
@@ -59,16 +64,16 @@ const SearchBar = ({ tagName, isLoad, isDelay }) => {
   return (
     <form className="form" onSubmit={handleSubmitTag}>
       <input
-        className="input-field"
         type="text"
         value={tagName}
         placeholder="введите тег"
         onChange={handleChangeTagName}
       />
       <button
+        className="btn"
         disabled={isLoad ? true : false}
-        className="load-button"
         title="Загрузить"
+        style={{ background: "green" }}
       >
         {isLoad ? "Загрузка..." : "Загрузить"}
       </button>

@@ -4,7 +4,15 @@ import { Context } from "../../context";
 const ResetButton = () => {
   const dispatch = useContext(Context);
   return (
-    <button onClick={() => dispatch({ type: "RESET" })}>{"Очистить"}</button>
+    <div>
+      <button
+        className="btn"
+        style={{ background: "red" }}
+        onClick={() => dispatch({ type: "RESET" })}
+      >
+        {"Очистить"}
+      </button>
+    </div>
   );
 };
 

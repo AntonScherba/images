@@ -7,6 +7,7 @@ import ResetButton from "./components/ResetButton/ResetButton";
 import { Context } from "./context";
 import { deepCopyArray } from "./functions";
 import reducer, { initialState } from "./reducer";
+import "./App.css";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -25,23 +26,28 @@ function App() {
       acc[tag].push(image);
       return acc;
     }, {});
+
     dispatch({ type: "SET_IMAGE_GROUPS", payload: imageGroups });
     dispatch({ type: "IS_GROUP_TOGGLE" });
   };
 
   return (
-    <div className="App">
-      <Context.Provider value={dispatch}>
-        <SearchBar tagName={inputTagName} isLoad={isLoad} isDelay={isDelay} />
-        <ResetButton />
-        <GroupButton onClick={renderImageGroups} isGroup={isGroup} />
-        {isGroup ? (
-          <ImageGroups imageGroups={imageGroups} />
-        ) : (
-          <ImageList images={images} />
-        )}
-      </Context.Provider>
-    </div>
+    <Context.Provider value={dispatch}>
+      <div>
+        <div className="control-bar">
+          <SearchBar tagName={inputTagName} isLoad={isLoad} isDelay={isDelay} />
+          <ResetButton />
+          <GroupButton onClick={renderImageGroups} isGroup={isGroup} />
+        </div>
+        <div className="images-conteiner">
+          {isGroup ? (
+            <ImageGroups imageGroups={imageGroups} />
+          ) : (
+            <ImageList images={images} />
+          )}
+        </div>
+      </div>
+    </Context.Provider>
   );
 }
 
