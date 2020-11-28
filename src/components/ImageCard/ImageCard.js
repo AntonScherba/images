@@ -5,9 +5,13 @@ const ImageCard = ({ image }) => {
   const dispatch = useContext(Context);
   const { imageUrl, tag, title } = image;
   return (
-    <div>
+    <div className="image-card">
       <img
-        onClick={() => dispatch({ type: "SET_TAG_NAME", payload: tag })}
+        className="image"
+        onClick={() => {
+          dispatch({ type: "SET_TAG_NAME", payload: tag });
+          dispatch({ type: "CHECK_EMPTY_INPUT" });
+        }}
         src={imageUrl}
         alt={title}
       />

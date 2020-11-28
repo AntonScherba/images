@@ -6,7 +6,7 @@ const ImageGroups = ({ imageGroups }) => {
 
   const images = imageTags.map((key, i) => {
     return (
-      <div key={i}>
+      <div className="image-group" key={i}>
         <p>{key}</p>
         <ImageList images={imageGroups[key]} />
       </div>

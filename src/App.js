@@ -11,8 +11,18 @@ import "./App.css";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { inputTagName, isLoad, isGroup, isDelay, images, imageGroups } = state;
+  const {
+    inputTagName,
+    isLoad,
+    isGroup,
+    images,
+    imageGroups,
+    isEmptyInput,
+    isCompositeTag,
+    isDelay,
+  } = state;
 
+  console.log(state);
   const renderImageGroups = () => {
     const imagesCopy = deepCopyArray(images);
 
@@ -33,20 +43,22 @@ function App() {
 
   return (
     <Context.Provider value={dispatch}>
-      <div>
-        <div className="control-bar">
-          <SearchBar tagName={inputTagName} isLoad={isLoad} isDelay={isDelay} />
-          <ResetButton />
-          <GroupButton onClick={renderImageGroups} isGroup={isGroup} />
-        </div>
-        <div className="images-conteiner">
-          {isGroup ? (
-            <ImageGroups imageGroups={imageGroups} />
-          ) : (
-            <ImageList images={images} />
-          )}
-        </div>
+      <div className="control-bar">
+        <SearchBar
+          tagName={inputTagName}
+          isLoad={isLoad}
+          isEmptyInput={isEmptyInput}
+          isCompositeTag={isCompositeTag}
+          isDelay={isDelay}
+        />
+        <ResetButton />
+        <GroupButton onClick={renderImageGroups} isGroup={isGroup} />
       </div>
+      {isGroup ? (
+        <ImageGroups imageGroups={imageGroups} />
+      ) : (
+        <ImageList images={images} />
+      )}
     </Context.Provider>
   );
 }

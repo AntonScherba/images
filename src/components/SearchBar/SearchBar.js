@@ -2,7 +2,13 @@ import React, { useContext } from "react";
 import { Context } from "../../context";
 import { generateRandomString } from "../../functions";
 
-const SearchBar = ({ tagName, isLoad, isDelay }) => {
+const SearchBar = ({
+  tagName,
+  isLoad,
+  isEmptyInput,
+  isCompositeTag,
+  isDelay,
+}) => {
   const dispatch = useContext(Context);
 
   // Добавте свой API key
@@ -42,17 +48,21 @@ const SearchBar = ({ tagName, isLoad, isDelay }) => {
   const handleChangeTagName = (e) => {
     let inputField = e.target.value.replace(/[^a-z,\s]/gi, "");
     dispatch({ type: "SET_TAG_NAME", payload: inputField });
+    dispatch({ type: "CHECK_EMPTY_INPUT" });
+    dispatch({ type: "CHECK_COMPOSITE_TAG" });
+    dispatch({ type: "CHECK_DELAY" });
   };
 
   const handleSubmitTag = (e) => {
     e.preventDefault();
 
-    if (tagName.length === 0) {
+    if (isEmptyInput) {
       alert(`заполните поле 'тег'`);
-    } else if (tagName.toLowerCase().trim() === "delay") {
+    } else if (isDelay) {
       setInterval(randomRequst, 5000);
-    } else if (tagName.includes(",")) {
+    } else if (isCompositeTag) {
       const tags = tagName.replace(/\s+/g, "").split(",");
+
       tags.map((tag) => {
         return getImage(tag);
       });

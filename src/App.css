@@ -4,10 +4,30 @@
   margin: 1rem;
 }
 
-.images-conteiner {
+.image-group {
+  width: 950px;
+  margin: 10px auto;
+  border: 1px black solid;
+}
+
+.image-list {
   display: flex;
-  flex-direction: column;
-  border: 2px black solid;
+  flex-wrap: wrap;
+  width: 950px;
+  margin: 0 auto;
+}
+
+.image-card {
+  height: 290px;
+  width: 290px;
+  margin: 10px;
+  border: 1px solid black;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 .btn {
