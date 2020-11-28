@@ -1,7 +1,6 @@
 export const initialState = {
   inputTagName: "",
   images: [],
-  imageGroups: {},
 
   isLoad: false,
   isGroup: false,
@@ -19,8 +18,6 @@ export default function (state, action) {
       return { ...state, inputTagName: action.payload };
     case "ADD_IMAGE":
       return { ...state, images: state.images.concat(action.payload) };
-    case "SET_IMAGE_GROUPS":
-      return { ...state, imageGroups: action.payload };
     case "IS_LOAD_TOGGLE":
       return { ...state, isLoad: !state.isLoad };
     case "IS_GROUP_TOGGLE":
@@ -35,7 +32,7 @@ export default function (state, action) {
         };
       }
     case "CHECK_COMPOSITE_TAG":
-      if (state.inputTagName.includes(",")) {
+      if (state.inputTagName.includes(",") && state.inputTagName.length > 1) {
         return { ...state, isCompositeTag: true };
       } else {
         return {

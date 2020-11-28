@@ -12,7 +12,7 @@ const SearchBar = ({
   const dispatch = useContext(Context);
 
   // Добавте свой API key
-  const apiKey = "FGG34DXH0GcZUAI7aGnKpiMamZ30KU7O";
+  // const apiKey = "YOUR_API_KEY";
 
   const getImage = async (tag) => {
     dispatch({ type: "IS_LOAD_TOGGLE" });
@@ -32,6 +32,7 @@ const SearchBar = ({
           title: image.data.title,
           id: image.data.id,
         };
+
         dispatch({ type: "ADD_IMAGE", payload: newImage });
       }
     } else {
@@ -63,9 +64,7 @@ const SearchBar = ({
     } else if (isCompositeTag) {
       const tags = tagName.replace(/\s+/g, "").split(",");
 
-      tags.map((tag) => {
-        return getImage(tag);
-      });
+      tags.forEach((tag) => getImage(tag));
     } else {
       getImage(tagName);
     }
